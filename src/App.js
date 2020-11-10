@@ -24,6 +24,10 @@ const Nickel = ({
   weight: 5,
   size: .4
 })
+const Penny = ({
+  weight: 1,
+  size: .3
+})
 
 const acceptableCoins = ({
     quarter: {
@@ -40,19 +44,15 @@ const acceptableCoins = ({
       weight: 5,
       size: .4,
       value: .05
-    },
-    penny: {
-      weight: 1,
-      size: .2,
-      value: .01
     }
 })
 
 
 
 function App() {
-  const [acceptedCoins, setAcceptedCoins] = useState([])
-  
+  const [acceptedCoins, setAcceptedCoins] = useState([]);
+  const [coinsValue, setCoinsValue] = useState();
+
   function insertCoin (coinObject) {
     const coinWeight = coinObject.weight;
     const coinSize = coinObject.size;
@@ -61,14 +61,35 @@ function App() {
     if(coinSize === acceptableCoins.quarter.size && coinWeight === acceptableCoins.quarter.weight) {
       console.log("inserted coin size = ", coinSize);
       console.log("inserted coin weight = ", coinWeight);
-      console.log("this is a quarter");
-      setAcceptedCoins([coinObject])
+      console.log("quarter accepted");
+      setAcceptedCoins( [...acceptedCoins, coinObject] );
+      console.log(acceptedCoins);
+    }
+    if(coinSize === acceptableCoins.dime.size && coinWeight === acceptableCoins.dime.weight) {
+      console.log("inserted coin size = ", coinSize);
+      console.log("inserted coin weight = ", coinWeight);
+      console.log("dime accepted");
+      setAcceptedCoins([].push(coinObject));
+      console.log(acceptedCoins);
+    }
+    if(coinSize === acceptableCoins.nickel.size && coinWeight === acceptableCoins.nickel.weight) {
+      console.log("inserted coin size = ", coinSize);
+      console.log("inserted coin weight = ", coinWeight);
+      console.log("dime accepted");
+      setAcceptedCoins([].push(coinObject));
+      console.log(acceptedCoins);
     }
   }
+
   return (
     <div className="App" style={styles.app}>
       <Header vendingdata={acceptedCoins}/>
-      <button onClick={()=>insertCoin(Quarter)}>Insert Coin</button>
+      <div className="InsertCoinPanel">
+        <button onClick={()=>insertCoin(Quarter)}>Insert Quarter</button>
+        <button onClick={()=>insertCoin(Dime)}>Insert Dime</button>
+        <button onClick={()=>insertCoin(Nickel)}>Insert Nickel</button>
+        <button onClick={()=>insertCoin(Penny)}>Insert Penny</button>
+      </div>
     </div>
   );
 }
