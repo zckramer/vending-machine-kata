@@ -51,7 +51,7 @@ const acceptableCoins = ({
 
 function App() {
   const [acceptedCoins, setAcceptedCoins] = useState([]);
-  const [coinsValue, setCoinsValue] = useState();
+  const [coinsValue, setCoinsValue] = useState(0);
 
   function insertCoin (coinObject) {
     const coinWeight = coinObject.weight;
@@ -59,31 +59,36 @@ function App() {
     // console.log("coin to determine: ", coinObject)
     // console.log("acceptable parameters: size=",acceptableCoins.quarter.size, " weight=", acceptableCoins.quarter.weight)
     if(coinSize === acceptableCoins.quarter.size && coinWeight === acceptableCoins.quarter.weight) {
-      console.log("inserted coin size = ", coinSize);
-      console.log("inserted coin weight = ", coinWeight);
+      // console.log("inserted coin size = ", coinSize);
+      // console.log("inserted coin weight = ", coinWeight);
       console.log("quarter accepted");
       setAcceptedCoins( [...acceptedCoins, coinObject] );
-      console.log(acceptedCoins);
+      console.log("accepted coins: ", acceptedCoins);
+      setCoinsValue(coinsValue + acceptableCoins.quarter.value)
     }
     if(coinSize === acceptableCoins.dime.size && coinWeight === acceptableCoins.dime.weight) {
-      console.log("inserted coin size = ", coinSize);
-      console.log("inserted coin weight = ", coinWeight);
+      // console.log("inserted coin size = ", coinSize);
+      // console.log("inserted coin weight = ", coinWeight);
       console.log("dime accepted");
-      setAcceptedCoins([].push(coinObject));
-      console.log(acceptedCoins);
+      setAcceptedCoins( [...acceptedCoins, coinObject] );
+      console.log("accepted coins: ", acceptedCoins);
+      setCoinsValue(coinsValue + acceptableCoins.dime.value)
     }
     if(coinSize === acceptableCoins.nickel.size && coinWeight === acceptableCoins.nickel.weight) {
-      console.log("inserted coin size = ", coinSize);
-      console.log("inserted coin weight = ", coinWeight);
+      // console.log("inserted coin size = ", coinSize);
+      // console.log("inserted coin weight = ", coinWeight);
       console.log("dime accepted");
-      setAcceptedCoins([].push(coinObject));
-      console.log(acceptedCoins);
+      setAcceptedCoins( [...acceptedCoins, coinObject] );
+      console.log("accepted coins: ", acceptedCoins);
+      setCoinsValue(coinsValue + acceptableCoins.nickel.value)
+    } else {
+      return console.log("Rejected coin, please take your change")
     }
   }
 
   return (
     <div className="App" style={styles.app}>
-      <Header vendingdata={acceptedCoins}/>
+      <Header totalValue={coinsValue}/>
       <div className="InsertCoinPanel">
         <button onClick={()=>insertCoin(Quarter)}>Insert Quarter</button>
         <button onClick={()=>insertCoin(Dime)}>Insert Dime</button>

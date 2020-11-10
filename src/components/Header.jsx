@@ -16,10 +16,7 @@ const Header = (props) => {
         <div className="Header" style={styles.header}>
             {console.log(totalsData)}
             <div className="Header__Money">
-                <div>Quarters: </div><p>{}</p>
-                <div>Dimes: </div><p>{}</p>
-                <div>Nickels: </div><p>{}</p>
-                <div>Total Inserted: </div><p>total value</p>
+    <div>Total Inserted: </div><p>{props.totalValue === 0 ? "Insert Coin" : props.totalValue}</p>
             </div>
         </div>
     )
